@@ -2,7 +2,6 @@
 #define CTEXT_FILE_ED_H
 
 #include <CRegExp.h>
-#include <CAutoPtr.h>
 #include <CIPoint2D.h>
 #include <list>
 #include <sys/types.h>

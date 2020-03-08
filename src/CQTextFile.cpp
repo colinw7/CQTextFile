@@ -9,6 +9,7 @@
 #include <CQUtil.h>
 #include <CQWindow.h>
 #include <CFileUtil.h>
+#include <CStrUtil.h>
 
 #include <QGridLayout>
 #include <QScrollBar>
