@@ -13,6 +13,8 @@ class CTextFileSelNotifier {
  public:
   CTextFileSelNotifier();
 
+  virtual ~CTextFileSelNotifier() { }
+
   virtual void selectionChanged(const std::string &str);
 };
 
@@ -82,6 +84,8 @@ class CTextFileSel {
 class CTextFileSelNotifierMgr {
  public:
   CTextFileSelNotifierMgr(CTextFileSel *sel);
+
+  CTextFileSel *sel() const { return sel_; }
 
   void addNotifier   (CTextFileSelNotifier *notifier);
   void removeNotifier(CTextFileSelNotifier *notifier);

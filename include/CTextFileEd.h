@@ -20,6 +20,8 @@ class CTextFileEdNotifier {
  public:
   CTextFileEdNotifier();
 
+  virtual ~CTextFileEdNotifier() { }
+
   virtual void edNotifyQuit(bool force);
 };
 
@@ -209,6 +211,8 @@ class CTextFileEd {
 class CTextFileEdNotifierMgr {
  public:
   CTextFileEdNotifierMgr(CTextFileEd *ed);
+
+  CTextFileEd *ed() const { return ed_; }
 
   void addNotifier   (CTextFileEdNotifier *notifier);
   void removeNotifier(CTextFileEdNotifier *notifier);

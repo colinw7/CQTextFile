@@ -1649,14 +1649,14 @@ doFindChar(char c, uint count, bool forward, bool till)
       rmoveTo(-1, 0);
   }
   else {
-    bool rc = true;
+    bool rc1 = true;
 
     for (uint i = 0; i < std::max(count, 1U); ++i) {
-      if (! (rc = util_->findPrevChar(getRow(), getCol(), c, false)))
+      if (! (rc1 = util_->findPrevChar(getRow(), getCol(), c, false)))
         break;
     }
 
-    if (till && rc)
+    if (till && rc1)
       rmoveTo(1, 0);
   }
 

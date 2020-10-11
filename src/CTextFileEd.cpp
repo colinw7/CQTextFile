@@ -335,11 +335,11 @@ parseCmd(CStrParse &parse)
       std::string find;
 
       while (! parse.eof() && ! parse.isChar(sep)) {
-        char c;
+        char c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
 
-        find += c;
+        find += c1;
       }
 
       // use previous find if empty
@@ -385,12 +385,12 @@ parseCmd(CStrParse &parse)
       break;
     }
     case 'k': { // (.)k<c> - mark line with char
-      char c;
+      char c1;
 
-      if (! parse.readChar(&c))
+      if (! parse.readChar(&c1))
         return false;
 
-      doMark(line_num1_, c);
+      doMark(line_num1_, c1);
 
       break;
     }
@@ -527,11 +527,11 @@ parseCmd(CStrParse &parse)
       std::string find, replace;
 
       while (! parse.eof() && ! parse.isChar(sep)) {
-        char c;
+        char c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
 
-        find += c;
+        find += c1;
       }
 
       // use previous find if empty
@@ -543,11 +543,11 @@ parseCmd(CStrParse &parse)
 
       // get replace string
       while (! parse.eof() && ! parse.isChar(sep)) {
-        char c;
+        char c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
 
-        replace += c;
+        replace += c1;
       }
 
       if (parse.isChar(sep))
@@ -689,11 +689,11 @@ parseCmd(CStrParse &parse)
       std::string find;
 
       while (! parse.eof() && ! parse.isChar('/')) {
-        char c;
+        char c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
 
-        find += c;
+        find += c1;
       }
 
       doFindNext(line_num1_, line_num2_, find);
@@ -705,11 +705,11 @@ parseCmd(CStrParse &parse)
       std::string find;
 
       while (! parse.eof() && ! parse.isChar('/')) {
-        char c;
+        char c1;
 
-        parse.readChar(&c);
+        parse.readChar(&c1);
 
-        find += c;
+        find += c1;
       }
 
       doFindPrev(line_num1_, line_num2_, find);
@@ -1086,10 +1086,10 @@ doSubstitute(int line_num1, int line_num2, const std::string &find,
 
       if (global) {
         while (util_->findNext(regexp, i - 1, epos + 1, i - 1, -1, &fline_num, &fchar_num, &len)) {
-          int spos = fchar_num;
-          int epos = spos + len - 1;
+          int spos1 = fchar_num;
+          int epos1 = spos1 + len - 1;
 
-          util_->replace(i - 1, spos, epos, replace);
+          util_->replace(i - 1, spos1, epos1, replace);
         }
       }
     }

@@ -171,22 +171,22 @@ nextWord(uint *line_num, uint *char_num)
 
     ++(*line_num);
 
-    const std::string &line = file_->getLine(*line_num);
+    const std::string &fileLine = file_->getLine(*line_num);
 
     *char_num = 0;
 
     // empty line is a word
-    if (line.empty()) {
+    if (fileLine.empty()) {
       found = true;
       break;
     }
 
     // skip space
-    while (*char_num < line.size() && isspace(line[*char_num]))
+    while (*char_num < fileLine.size() && isspace(fileLine[*char_num]))
       ++(*char_num);
 
     // if not at end of line we have found a word
-    if (*char_num < line.size()) {
+    if (*char_num < fileLine.size()) {
       found = true;
       break;
     }
@@ -235,22 +235,22 @@ nextWORD(uint *line_num, uint *char_num)
 
     ++(*line_num);
 
-    const std::string &line = file_->getLine(*line_num);
+    const std::string &fileLine = file_->getLine(*line_num);
 
     *char_num = 0;
 
     // empty line is a word
-    if (line.empty()) {
+    if (fileLine.empty()) {
       found = true;
       break;
     }
 
     // skip space
-    while (*char_num < line.size() && isspace(line[*char_num]))
+    while (*char_num < fileLine.size() && isspace(fileLine[*char_num]))
       ++(*char_num);
 
     // if not at end of line we have found a word
-    if (*char_num < line.size()) {
+    if (*char_num < fileLine.size()) {
       found = true;
       break;
     }
@@ -992,9 +992,9 @@ isSentenceEnd(const std::string &line, uint pos, uint *n) const
 
   // skip (, ], " and ' after . ! ?
   while (pos + *n < len - 1) {
-    char c = line[pos + *n];
+    char c1 = line[pos + *n];
 
-    if (strchr(")]\"\'", c) == NULL)
+    if (strchr(")]\"\'", c1) == NULL)
       break;
 
     (*n)++;

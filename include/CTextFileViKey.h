@@ -14,6 +14,8 @@ class CTextFileViKey : public CTextFileKey, public CTextFileNotifier, public CTe
    public:
     LastCommand(CTextFile *file);
 
+    CTextFile *file() const { return file_; }
+
     void clear();
 
     void addCount(uint n);
@@ -40,6 +42,8 @@ class CTextFileViKey : public CTextFileKey, public CTextFileNotifier, public CTe
 
   void setInsertMode(bool insert_mode);
   bool getInsertMode() const { return insertMode_; }
+
+  bool getCmdLineMode() const { return cmdLineMode_; }
 
   void processChar(CKeyType key, const std::string &text, CEventModifier modifier);
 

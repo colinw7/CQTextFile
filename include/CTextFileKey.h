@@ -16,6 +16,8 @@ class CTextFileKeyNotifier {
  public:
   CTextFileKeyNotifier();
 
+  virtual ~CTextFileKeyNotifier() { }
+
   virtual void enterCmdLineMode(const std::string &str);
 
   virtual void showOverlayMsg(const std::string &msg);
@@ -38,7 +40,8 @@ class CTextFileKeyNotifier {
 class CTextFileKey {
  public:
   CTextFileKey(CTextFile *file);
- ~CTextFileKey();
+
+  virtual ~CTextFileKey();
 
   virtual void processChar(CKeyType key, const std::string &text, CEventModifier modifier) = 0;
 
@@ -107,6 +110,8 @@ class CTextFileKey {
 class CTextFileKeyNotifierMgr {
  public:
   CTextFileKeyNotifierMgr(CTextFileKey *key);
+
+  CTextFileKey *key() const { return key_; }
 
   void addNotifier   (CTextFileKeyNotifier *notifier);
   void removeNotifier(CTextFileKeyNotifier *notifier);
