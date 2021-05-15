@@ -27,7 +27,7 @@ CTextFileUtil.cpp \
 CTextFileViKey.cpp \
 
 HEADERS += \
-../include/CQTextFileCanvas.h \
+CQTextFileCanvas.h \
 ../include/CQTextFile.h \
 ../include/CTextFileBuffer.h \
 ../include/CTextFileEd.h \
