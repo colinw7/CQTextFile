@@ -81,7 +81,7 @@ CTextFileEd::
 init()
 {
   // move to first character on last line
-  setPos(CIPoint2D(0, std::max(0, (int) file_->getNumLines() - 1)));
+  setPos(CIPoint2D(0, std::max(0, int(file_->getNumLines() - 1))));
 }
 
 bool
@@ -205,8 +205,8 @@ execCmd(const std::string &cmd)
     }
 
     // ensure valid range
-    if (line_num1_ < 1 || line_num1_ > (int) file_->getNumLines() + 1 ||
-        line_num2_ < 1 || line_num2_ > (int) file_->getNumLines() + 1) {
+    if (line_num1_ < 1 || line_num1_ > int(file_->getNumLines() + 1) ||
+        line_num2_ < 1 || line_num2_ > int(file_->getNumLines() + 1)) {
       error("Invalid range: " + CStrUtil::toString(line_num1_) +
             " to " + CStrUtil::toString(line_num2_));
       return false;
@@ -290,7 +290,7 @@ parseCmd(CStrParse &parse)
 
         CStrUtil::addLines(dest, lines);
 
-        int numLines = lines.size();
+        int numLines = int(lines.size());
 
         for (int l = 0; l < numLines; ++l)
           addLine(l, lines[l]);
@@ -486,7 +486,7 @@ parseCmd(CStrParse &parse)
 
         CStrUtil::addLines(dest, lines);
 
-        int numLines = lines.size();
+        int numLines = int(lines.size());
 
         for (int l = 0; l < numLines; ++l)
           addLine(line_num1_ + l, lines[l]);
@@ -504,7 +504,7 @@ parseCmd(CStrParse &parse)
 
         file.toLines(lines);
 
-        uint numLines = lines.size();
+        uint numLines = uint(lines.size());
 
         for (uint l = 0; l < numLines; ++l)
           addLine(line_num1_ + l, lines[l]);
@@ -1272,7 +1272,7 @@ doExecute(int line_num1, int line_num2, const std::string &cmdStr)
 
   CStrUtil::addLines(dest, lines);
 
-  int numLines = lines.size();
+  int numLines = int(lines.size());
 
   for (int l = 0; l < numLines; ++l)
     addLine(line_num1 + l - 1, lines[l]);

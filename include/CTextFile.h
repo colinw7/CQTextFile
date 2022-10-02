@@ -111,6 +111,8 @@ class CTextFileIFace {
 
     LineIterator(const LineIterator &i) : impl_(i.impl_) { }
 
+    LineIterator &operator=(const LineIterator &i) { impl_ = i.impl_; return *this; }
+
     LineIterator &toEnd() { impl_->toEnd(); return *this; }
 
     const value_type &operator->() const { return line(); }
@@ -236,7 +238,7 @@ class CTextLine {
 
   void setLine(const std::string &line) { line_ = line; }
 
-  uint getLength() const { return line_.size(); }
+  uint getLength() const { return uint(line_.size()); }
 
   char getChar(uint pos) const;
 

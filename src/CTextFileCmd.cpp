@@ -103,7 +103,7 @@ moveToCommand(const std::string &, const std::string &data)
       ! CStrUtil::toInteger(words[1], &y))
     return false;
 
-  file_->moveTo(x, y);
+  file_->moveTo(int(x), int(y));
 
   return true;
 }
@@ -123,7 +123,7 @@ rmoveToCommand(const std::string &, const std::string &data)
       ! CStrUtil::toInteger(words[1], &y))
     return false;
 
-  file_->rmoveTo(x, y);
+  file_->rmoveTo(int(x), int(y));
 
   return false;
 }

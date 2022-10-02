@@ -118,8 +118,8 @@ selectLine(int row)
 {
   const std::string &line = file_->getLine(row);
 
-  CIPoint2D start(              0, row);
-  CIPoint2D end  (line.size() - 1, row);
+  CIPoint2D start(                   0, row);
+  CIPoint2D end  (int(line.size()) - 1, row);
 
   rangeSelect(start, end, true);
 }
@@ -160,7 +160,7 @@ getSelectedText() const
   if (selMode_ == RANGE_SEL_MODE) {
     const std::string &line1 = file_->getLine(start_.y);
 
-    int len1 = line1.size();
+    int len1 = int(line1.size());
 
     if (len1 > 0) {
       int x1 = (start_.x < len1 ? start_.x : 0);
@@ -173,7 +173,7 @@ getSelectedText() const
 
     const std::string &line2 = file_->getLine(end_.y);
 
-    int len2 = line2.size();
+    int len2 = int(line2.size());
 
     if (len2 > 0) {
       int x2 = (end_.x + 1 < len2 ? end_.x + 1 : len2);
@@ -185,7 +185,7 @@ getSelectedText() const
     for (int row = start_.y; row <= end_.y; ++row) {
       const std::string &line = file_->getLine(row);
 
-      int len = line.size();
+      int len = int(line.size());
 
       if (row > start_.y) sel += "\n";
 

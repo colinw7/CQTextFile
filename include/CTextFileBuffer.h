@@ -39,7 +39,7 @@ class CTextFileBuffer {
     }
 
     uint getNumLines() const {
-      return lines.size();
+      return uint(lines.size());
     }
 
     const BufferLine &getLine(uint i) const {

@@ -72,7 +72,7 @@ execCmd(const std::string &cmd)
 
   CStrUtil::toWords(cmd, words);
 
-  uint num_words = words.size();
+  uint num_words = uint(words.size());
 
   std::string cmdName = (num_words > 0 ? words[0] : "");
 
@@ -290,6 +290,8 @@ processCommandChar(CKeyType key, const std::string &text, CEventModifier modifie
           sel_->rangeSelect(sel_->getSelectStart(), select_end, true);
         else
           sel_->clearSelection();
+
+        break;
       }
       case CKEY_TYPE_m: { // mark
         marks_->setMarkPos(std::string(&c, 1));
@@ -1696,7 +1698,7 @@ setOptionString(const std::string &name, const std::string &arg)
     notifyNumber(options_.number);
   }
   else if (name1 == "shiftwidth")
-    options_.shiftwidth = CStrUtil::toInteger(arg1);
+    options_.shiftwidth = int(CStrUtil::toInteger(arg1));
   else if (name1 == "showmatch")
     options_.showmatch = CStrUtil::toBool(arg1);
 }
@@ -1813,7 +1815,7 @@ addCount(uint n)
 
   std::string str = CStrUtil::toString(n);
 
-  uint len = str.size();
+  uint len = uint(str.size());
 
   for (uint i = 0; i < len; ++i) {
     CKeyType key = CEvent::charKeyType(str[i]);

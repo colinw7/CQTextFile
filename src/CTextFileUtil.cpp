@@ -33,12 +33,12 @@ deleteWord(uint line_num, uint char_num)
   uint num = 0;
 
   if (isWordChar(line[char_num])) {
-    while (int(char_num + num) < (int) line.size() - 1 &&
+    while (int(char_num + num) < int(line.size()) - 1 &&
            isWordChar(line[char_num + num]))
       ++num;
   }
   else {
-    while (int(char_num + num) < (int) line.size() - 1 &&
+    while (int(char_num + num) < int(line.size()) - 1 &&
            ! isWordChar(line[char_num + num]))
       ++num;
   }
@@ -82,7 +82,7 @@ shiftLeft(uint line_num1, uint line_num2)
   for (uint line_num = line_num1; line_num <= line_num2; ++line_num) {
     const std::string &line = file_->getLine(line_num);
 
-    uint len = line.size();
+    uint len = uint(line.size());
 
     uint n1 = 0;
 
@@ -294,7 +294,7 @@ prevWord(uint *line_num, uint *char_num)
     if (line.empty())
       return;
 
-    *char_num = line.size() - 1;
+    *char_num = int(line.size()) - 1;
 
     // skip spaces
     while (*char_num > 0 && isspace(line[*char_num]))
@@ -355,7 +355,7 @@ prevWORD(uint *line_num, uint *char_num)
     if (line.empty())
       return;
 
-    *char_num = line.size() - 1;
+    *char_num = uint(line.size()) - 1;
 
     // skip spaces
     while (*char_num > 0 && isspace(line[*char_num]))
@@ -570,7 +570,7 @@ getWord(uint line_num, uint char_num, std::string &word)
   int char_num2 = char_num1;
 
   // find end of word
-  while (char_num2 < (int) line.size() - 1 &&
+  while (char_num2 < int(line.size()) - 1 &&
          isWordChar(line[char_num2]) && isWordChar(line[char_num2 + 1]))
     ++char_num2;
 
@@ -904,7 +904,7 @@ nextLine(uint *line_num, uint *char_num)
 {
   const std::string &line = file_->getLine(*line_num);
 
-  *char_num = line.size() - 1;
+  *char_num = uint(line.size()) - 1;
 
   if (*line_num >= file_->getNumLines() - 1)
     return false;
@@ -929,7 +929,7 @@ prevLine(uint *line_num, uint *char_num)
 
   const std::string &line = file_->getLine(*line_num);
 
-  *char_num = std::max((int) line.size() - 1, 0);
+  *char_num = std::max(int(line.size()) - 1, 0);
 
   return true;
 }
@@ -940,7 +940,7 @@ addChars(uint line_num, uint char_num, const std::string &chars)
 {
   file_->moveTo(char_num, line_num);
 
-  uint len = chars.size();
+  uint len = uint(chars.size());
 
   for (uint i = 0; i < len; ++i)
     file_->addCharAfter(chars[i]);
@@ -959,7 +959,7 @@ bool
 CTextFileUtil::
 isBlank(const std::string &line) const
 {
-  uint len = line.size();
+  uint len = uint(line.size());
 
   for (uint i = 0; i < len; ++i) {
     char c = line[i];
@@ -977,7 +977,7 @@ isSentenceEnd(const std::string &line, uint pos, uint *n) const
 {
   *n = 0;
 
-  uint len = line.size();
+  uint len = uint(line.size());
 
   if (pos + *n >= len)
     return false;
@@ -1017,7 +1017,7 @@ bool
 CTextFileUtil::
 isSection(const std::string &line, uint, uint *n) const
 {
-  uint len = line.size();
+  uint len = uint(line.size());
 
   if (len > 0 && line[0] == '{') {
     *n = 0;
@@ -1039,7 +1039,7 @@ findNext(const std::string &pattern, uint line_num1, int char_num1,
     return true;
   }
 
-  for (int i = (int) line_num1 + 1; i <= line_num2 - 1; ++i) {
+  for (int i = int(line_num1) + 1; i <= line_num2 - 1; ++i) {
     const std::string &line = file_->getLine(i);
 
     if (lineFindNext(line, pattern, 0, -1, fchar_num)) {
@@ -1074,7 +1074,7 @@ findNext(const CRegExp &pattern, uint line_num1, int char_num1,
     return true;
   }
 
-  for (int i = (int) line_num1 + 1; i <= line_num2 - 1; ++i) {
+  for (int i = int(line_num1) + 1; i <= line_num2 - 1; ++i) {
     const std::string &line = file_->getLine(i);
 
     if (lineFindNext(line, pattern, 0, -1, &spos, &epos)) {
@@ -1105,9 +1105,9 @@ lineFindNext(const std::string &line, const std::string &pattern,
   if (line.empty())
     return false;
 
-  uint num_chars = line.size();
+  uint num_chars = uint(line.size());
 
-  if (char_num1 >= (int) num_chars)
+  if (char_num1 >= int(num_chars))
     return false;
 
   if (char_num2 < 0)
@@ -1123,7 +1123,7 @@ lineFindNext(const std::string &line, const std::string &pattern,
     return false;
 
   if (char_num)
-    *char_num = p - cline;
+    *char_num = uint(p - cline);
 
   return true;
 }
@@ -1136,9 +1136,9 @@ lineFindNext(const std::string &line, const CRegExp &pattern,
   if (line.empty())
     return false;
 
-  uint num_chars = line.size();
+  uint num_chars = uint(line.size());
 
-  if (char_num1 >= (int) num_chars)
+  if (char_num1 >= int(num_chars))
     return false;
 
   if (char_num2 < 0)
@@ -1238,12 +1238,12 @@ lineFindPrev(const std::string &line, const std::string &pattern,
   if (line.empty())
     return false;
 
-  uint num_chars = line.size();
+  uint num_chars = uint(line.size());
 
   if (char_num1 < 0)
     char_num1 = num_chars - 1;
 
-  if (char_num2 >= (int) num_chars)
+  if (char_num2 >= int(num_chars))
     return false;
 
   const char *cline = line.c_str();
@@ -1256,7 +1256,7 @@ lineFindPrev(const std::string &line, const std::string &pattern,
     return false;
 
   if (char_num)
-    *char_num = p - cline;
+    *char_num = uint(p - cline);
 
   return true;
 }
@@ -1269,12 +1269,12 @@ lineFindPrev(const std::string &line, const CRegExp &pattern,
   if (line.empty())
     return false;
 
-  uint num_chars = line.size();
+  uint num_chars = uint(line.size());
 
   if (char_num1 < 0)
     char_num1 = num_chars - 1;
 
-  if (char_num2 >= (int) num_chars)
+  if (char_num2 >= int(num_chars))
     return false;
 
   std::string line1 = line.substr(char_num2, char_num1 - char_num2 + 1);
@@ -1381,7 +1381,7 @@ findPrevChar(uint line_num, int char_num, char c, bool multiline)
 
     line = file_->getLine(line_num);
 
-    char_num = line.size() - 1;
+    char_num = int(line.size()) - 1;
   }
 
   return false;
@@ -1415,7 +1415,7 @@ findPrevChar(uint line_num, int char_num, const std::string &str, bool multiline
 
     line = file_->getLine(line_num);
 
-    char_num = line.size() - 1;
+    char_num = int(line.size()) - 1;
   }
 
   return false;
@@ -1451,7 +1451,7 @@ joinLine(uint line_num)
 
   file_->replaceLine(line1 + line2);
 
-  file_->moveTo(line1.size(), line_num);
+  file_->moveTo(uint(line1.size()), line_num);
 }
 
 void
@@ -1523,7 +1523,7 @@ deleteTo(uint line_num1, uint char_num1, uint line_num2, uint char_num2)
   if      (line_num1 < line_num2) {
     const std::string &line = file_->getLine(line_num1);
 
-    int num = line.size() - char_num1;
+    int num = int(line.size()) - char_num1;
 
     deleteChars(line_num1, char_num1, num);
 
@@ -1554,7 +1554,7 @@ deleteTo(uint line_num1, uint char_num1, uint line_num2, uint char_num2)
 
     const std::string &line = file_->getLine(line_num2);
 
-    int num = line.size() - char_num2;
+    int num = int(line.size()) - char_num2;
 
     deleteChars(line_num2, char_num2, num);
   }
@@ -1634,7 +1634,7 @@ moveToFirstNonBlank()
 
   const std::string &line = file_->getLine(y);
 
-  uint len = line.size();
+  uint len = uint(line.size());
 
   while (x < len && isspace(line[x]))
     ++x;
@@ -1652,7 +1652,7 @@ moveToNonBlank()
 
   const std::string &line = file_->getLine(y);
 
-  uint len = line.size();
+  uint len = uint(line.size());
 
   while (x < len && isspace(line[x]))
     ++x;
@@ -1679,8 +1679,8 @@ swapChar(uint line_num, uint char_num)
 
   char c = line[char_num];
 
-  if      (islower(c)) c = toupper(c);
-  else if (isupper(c)) c = tolower(c);
+  if      (islower(c)) c = char(toupper(c));
+  else if (isupper(c)) c = char(tolower(c));
 
   line[char_num] = c;
 

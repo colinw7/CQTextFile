@@ -44,7 +44,7 @@ CQTextFile(QWidget *parent) :
 
   canvas_ = new CQTextFileCanvas(this);
 
-  connect(canvas_, SIGNAL(sizeChanged(int,int)), this, SIGNAL(sizeChanged(int,int)));
+  connect(canvas_, SIGNAL(sizeChanged(int, int)), this, SIGNAL(sizeChanged(int, int)));
 
   hscroll_ = new QScrollBar(Qt::Horizontal);
   vscroll_ = new QScrollBar(Qt::Vertical  );
@@ -229,7 +229,7 @@ CQTextFileCanvas(CQTextFile *textFile) :
   QFontMetrics fm(font());
 
   char_rect_   = fm.boundingRect("X");
-  char_width_  = fm.width("X");
+  char_width_  = fm.horizontalAdvance("X");
   char_ascent_ = fm.ascent();
   char_height_ = fm.ascent() + fm.descent() + 1;
 
@@ -244,9 +244,9 @@ void
 CQTextFileCanvas::
 paintEvent(QPaintEvent *)
 {
-  QColor bg = (hasFocus() ? QColor(255,255,255) : QColor(240,240,240));
-  QColor fg = (hasFocus() ? QColor(0  ,0  ,0  ) : QColor( 40, 40, 40));
-  QColor tc = (hasFocus() ? QColor(0  ,0  ,200) : QColor( 40, 40,200));
+  QColor bg = (hasFocus() ? QColor(255, 255, 255) : QColor(240, 240, 240));
+  QColor fg = (hasFocus() ? QColor(0  , 0  , 0  ) : QColor( 40,  40,  40));
+  QColor tc = (hasFocus() ? QColor(0  , 0  , 200) : QColor( 40,  40, 200));
 
   if (! painter_) {
     painter_ = new QPainter(&qimage_);
@@ -339,7 +339,7 @@ paintEvent(QPaintEvent *)
   }
 
   if (number) {
-    painter_->setPen(QColor(200,200,200));
+    painter_->setPen(QColor(200, 200, 200));
 
     painter_->drawLine(xm - 2, 0, xm - 2, height() - 1);
   }
@@ -400,12 +400,12 @@ drawLine(QPainter *painter, int x, int y, uint row, const std::string &line)
       }
 
       if (char_sel)
-        painter->fillRect(QRect(x, y, cs*char_width_, char_height_), QColor(255,255,0));
+        painter->fillRect(QRect(x, y, cs*char_width_, char_height_), QColor(255, 255, 0));
 
       if (row == cursorY_ && col == cursorX_) {
         QRect cursor_rect(x, y, char_width_, char_height_);
 
-        painter_->fillRect(cursor_rect, CQUtil::rgbaToColor(CRGBA(0,1,0)));
+        painter_->fillRect(cursor_rect, CQUtil::rgbaToColor(CRGBA(0, 1, 0)));
       }
 
       if (cstr[0] >= ' ' && cstr[0] <= '~') {
@@ -421,11 +421,11 @@ drawLine(QPainter *painter, int x, int y, uint row, const std::string &line)
       else {
         cstr[0] = '?';
 
-        painter->setPen(QColor(255,0,0));
+        painter->setPen(QColor(255, 0, 0));
 
         painter->drawText(x, y + char_ascent_, cstr);
 
-        painter->setPen(QColor(0,0,0));
+        painter->setPen(QColor(0, 0, 0));
       }
     }
 
@@ -435,7 +435,7 @@ drawLine(QPainter *painter, int x, int y, uint row, const std::string &line)
   if (row == cursorY_ && len == cursorX_) {
     QRect cursor_rect(x, y, char_width_, char_height_);
 
-    painter_->fillRect(cursor_rect, CQUtil::rgbaToColor(CRGBA(0,1,0)));
+    painter_->fillRect(cursor_rect, CQUtil::rgbaToColor(CRGBA(0, 1, 0)));
   }
 }
 

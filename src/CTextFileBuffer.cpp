@@ -37,7 +37,7 @@ yankLines(char id, uint line_num, uint n)
 
     const std::string &line = file_->getLine(line_num1);
 
-    uint len = line.size();
+    uint len = uint(line.size());
 
     subYankTo(id, line_num1, 0, line_num1, std::max(int(len) - 1, 0), true);
   }
@@ -195,7 +195,7 @@ pasteAfter(char id, uint line_num, uint char_num)
 {
   Buffer &buffer = getBuffer(id);
 
-  uint num_lines = buffer.lines.size();
+  uint num_lines = uint(buffer.lines.size());
 
   if (num_lines == 0)
     return;
@@ -278,7 +278,7 @@ pasteBefore(char id, uint line_num, uint char_num)
 {
   Buffer &buffer = getBuffer(id);
 
-  uint num_lines = buffer.lines.size();
+  uint num_lines = uint(buffer.lines.size());
 
   if (num_lines == 0)
     return;

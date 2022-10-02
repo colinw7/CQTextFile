@@ -17,7 +17,7 @@ class CTextFileMarks {
    file_(file) {
   }
 
-  uint getNumMarks() const { return marks_.size(); }
+  uint getNumMarks() const { return uint(marks_.size()); }
 
   const MarkList &getMarks() const { return marks_; }
 

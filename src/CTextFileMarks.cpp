@@ -61,7 +61,7 @@ clearLineMarks(uint line_num)
   MarkList::iterator p2 = marks_.end  ();
 
   for ( ; p1 != p2; ++p1) {
-    if ((*p1).second.y == (int) line_num)
+    if ((*p1).second.y == int(line_num))
       (*p1).second = CIPoint2D(-1, -1);
   }
 }
