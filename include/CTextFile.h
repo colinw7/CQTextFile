@@ -74,9 +74,9 @@ class CTextFileIFace {
      LineIteratorImpl(i), line_num_(i.line_num_) {
     }
 
-    void next() { ++line_num_; end_ = (line_num_ > file_->getNumLines()); }
+    void next() override { ++line_num_; end_ = (line_num_ > file_->getNumLines()); }
 
-    bool equal(const LineIteratorImpl &i) const {
+    bool equal(const LineIteratorImpl &i) const override {
       const SimpleLineIteratorImpl &i1 = static_cast<const SimpleLineIteratorImpl &>(i);
 
       if (end_ && i1.end_) return true;
@@ -85,9 +85,10 @@ class CTextFileIFace {
       return (line_num_ == i1.line_num_);
     }
 
-    std::string &line() const { static std::string l; l = file_->getLine(line_num_); return l; }
+    std::string &line() const override {
+      static std::string l; l = file_->getLine(line_num_); return l; }
 
-    uint lineNum() const { return line_num_; }
+    uint lineNum() const override { return line_num_; }
 
    protected:
     uint line_num_;
@@ -269,59 +270,59 @@ class CTextFile : public CTextFileIFace {
   void removeNotifier(CTextFileNotifier *notifier);
 
   // read/write
-  bool read (const char *fileName);
-  bool write(const char *fileName);
+  bool read (const char *fileName) override;
+  bool write(const char *fileName) override;
 
   // read/write
-  void removeAllLines();
+  void removeAllLines() override;
 
   // move
-  void moveTo(uint x, uint y);
-  void rmoveTo(int dx, int dy);
+  void moveTo(uint x, uint y) override;
+  void rmoveTo(int dx, int dy) override;
 
-  void getPos(uint *x, uint *y) const;
+  void getPos(uint *x, uint *y) const override;
 
   // file info
-  void setFileName(const std::string &fileName);
-  const std::string &getFileName();
+  void setFileName(const std::string &fileName) override;
+  const std::string &getFileName() override;
 
-  char               getChar() const;
-  const std::string &getLine() const;
+  char               getChar() const override;
+  const std::string &getLine() const override;
 
-  const std::string &getLine(uint y) const;
+  const std::string &getLine(uint y) const override;
 
-  uint getLineLength() const;
-  uint getNumLines  () const;
+  uint getLineLength() const override;
+  uint getNumLines  () const override;
 
   // edit
-  void addCharAfter(char c);
-  void addCharBefore(char c);
+  void addCharAfter(char c) override;
+  void addCharBefore(char c) override;
 
-  void addLineAfter (const std::string &line);
-  void addLineBefore(const std::string &line);
+  void addLineAfter (const std::string &line) override;
+  void addLineBefore(const std::string &line) override;
 
-  void deleteCharAt();
-  void deleteCharBefore();
+  void deleteCharAt() override;
+  void deleteCharBefore() override;
 
-  void deleteLineAt();
-  void deleteLineBefore();
+  void deleteLineAt() override;
+  void deleteLineBefore() override;
 
-  void replaceChar(char c);
-  void replaceLine(const std::string &l);
+  void replaceChar(char c) override;
+  void replaceLine(const std::string &l) override;
 
   // visual
-  uint getPageTop   () const;
-  void setPageTop   (uint pos);
-  uint getPageBottom() const;
-  void setPageBottom(uint pos);
+  uint getPageTop   () const override;
+  void setPageTop   (uint pos) override;
+  uint getPageBottom() const override;
+  void setPageBottom(uint pos) override;
 
   // grouping for undo/redo
-  void startGroup();
-  void endGroup  ();
+  void startGroup() override;
+  void endGroup  () override;
 
   // iteration
-  LineIterator beginLine();
-  LineIterator endLine  ();
+  LineIterator beginLine() override;
+  LineIterator endLine  () override;
 
  private:
   bool getLine(CTextLine **line);
